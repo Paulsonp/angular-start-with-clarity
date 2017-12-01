@@ -1,0 +1,51 @@
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h3>
+            {{ pageTitle }}
+        </h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100">
+        <span><input type='text' [(ngModel)]="listItems" placeholder="search" /></span>
+        <h5>Filtered by: {{ listItems }} </h5>
+    </div>
+    <table class="table" *ngIf='items && items.length'>
+        <thead class="table-head">
+            <tr>
+                <th class="left" fxLayout="row" fxLayoutAlign="center center">
+                    <button class="btn btn-primary" (click)='toggleImage()'>
+                        {{showImage ? 'Hide' : 'Show'}} Image
+                    </button>
+                </th>
+                <th class="item-name">Product</th>
+                <th class="item-name">Code</th>
+                <th class="item-name">Available</th>
+                <th class="item-name">Price</th>
+                <th class="item-name">5 Star Rating</th>
+            </tr>
+        </thead>
+        <tbody class="table-body clickable">
+            <tr *ngFor='let item of items | itemFilter: listItems'>
+                <td>
+                    <img *ngIf='showImage'
+                        [src]='item.imageUrl'
+                        [title]='item.productName'
+                        [style.width.px]='imageWidth'>
+                </td>
+                <td class="item-details">
+                    <a [routerLink]="['/items', item.productId]"> {{ item.productName }} </a> 
+                </td>
+                <td class="item-details">{{ item.productCode  }}</td>
+                <td class="item-details">{{ item.releaseDate }}</td>
+                <td class="item-details">{{ item.price | currency:'USD':true:'1.2-2'}}</td>
+                <td class="item-details">
+                    <pm-star [rating]='item.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h3>
+            {{ rating }}
+        </h3>
+    </div>
+</div>  

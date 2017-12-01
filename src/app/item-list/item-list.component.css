@@ -1,0 +1,13 @@
+.table
+{
+    margin-bottom: 1em;
+}
+
+.table-head tr .item-name
+{
+    padding-bottom: 2.4em;
+}
+.table-body tr .item-details
+{
+    padding-top: 1.3rem;
+}
