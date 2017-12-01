@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # APM
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.4.
@@ -30,4 +29,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 =======
 # angular-start-with-clarity
 Followed by Deborah Kurata 
->>>>>>> db1a3e92d485320784ebec62076a084fdbee7501
