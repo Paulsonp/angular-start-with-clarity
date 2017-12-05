@@ -41,10 +41,10 @@ import { AuthService } from './auth.service';
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: 'items', component: ItemListComponent, canActivate: [AuthService] },
-      { path: 'login', component: LoginComponent },
-      { path: 'items/:id', component: ItemDetailsComponent, canActivate: [AuthService] },
-      { path: 'welcome', component: WelcomeComponent, canActivate: [AuthService] },
+      { path: 'items', component: ItemListComponent, canActivate: [AuthService], pathMatch: 'full'  },
+      { path: 'login', component: LoginComponent, pathMatch: 'full'  },
+      { path: 'items/:id', component: ItemDetailsComponent, pathMatch: 'full', canActivate: [AuthService] },
+      { path: 'welcome', component: WelcomeComponent, canActivate: [AuthService], pathMatch: 'full'  },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ])
