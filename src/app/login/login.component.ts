@@ -12,6 +12,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  errorMsg: string;
+  error: any;
     email: string;
     password: string;
 
@@ -24,7 +26,6 @@ export class LoginComponent implements OnInit {
             if (user) {
               this.userDetails = user;
               console.log(this.userDetails);
-              
             } else {
               this.userDetails = null;
             }
@@ -36,36 +37,43 @@ export class LoginComponent implements OnInit {
   }
 
   signup() {
-    this.authService.signup(this.email, this.password);
-    this.email = this.password = '';
+    this.authService.signup(this.email, this.password)
+    .subscribe(
+      success => this.router.navigateByUrl('/welcome'),
+      error => {
+        if (error) {
+          this.errorMsg = 'The email address is already in use by another account.';
+        } else {
+          console.log('Welcome');
+        }
+      }
+    );
   }
   login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';
+    this.authService.login(this.email, this.password)
+    .subscribe(
+      success => this.router.navigateByUrl('/welcome'),
+      error => {
+        if (error) {
+          this.errorMsg = 'Invalid user name or password ';
+        } else {
+          console.log('Welcome');
+        }
+      }
+    );
   }
   logout() {
     this.authService.logout();
     this.router.navigateByUrl ('/login');
   }
   signInWithFacebook() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.FacebookAuthProvider()
-    );
+    this.authService.loginWithFacebook();
   }
-signInWithGoogle() {
-    // this.router.navigateByUrl ('/welcome');
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    );
+  signInWithGoogle() {
+    this.authService.loginWithGoogle();
   }
   signInWithGitHub() {
-    return this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GithubAuthProvider()
-    );
+    this.authService.loginWithGitHub();
   }
-// logout() {
-//     this._firebaseAuth.auth.signOut()
-//     .then((res) => this.router.navigate(['/']));
-//   }
 
 }

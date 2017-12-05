@@ -11,9 +11,11 @@ import { Router, CanActivate } from '@angular/router';
 @Injectable()
 export class AuthService implements CanActivate {
   user: Observable<firebase.User>;
+  loginError;
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = firebaseAuth.authState;
+    this.loginError = firebaseAuth.auth;
   }
   canActivate(): Observable<boolean> {
     return this.firebaseAuth.authState
@@ -25,28 +27,66 @@ export class AuthService implements CanActivate {
         }
       });
   }
-  signup(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Success!', value);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });
+  // signup(email: string, password: string) {
+  //   this.firebaseAuth
+  //     .auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then(value => {
+  //       console.log('Success!', value);
+  //     })
+  //     .catch(err => {
+  //       console.log('Something went wrong:', err.message);
+  //     });
+  // }
+  signup(email, password): Observable<any> {
+    return Observable.fromPromise (
+      this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+    );
   }
 
-  login(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(email, password)
+  login(email, password): Observable<any> {
+    return Observable.fromPromise (
+      this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+    );
+    // this.firebaseAuth
+    //   .auth
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(value => {
+    //       this.router.navigateByUrl('/welcome');
+    //   })
+    //   .catch(err => {
+    //     console.log('Something went wrong:', err.message);
+    //   });
+  }
+  loginWithGoogle() {
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider())
       .then(value => {
-          this.router.navigateByUrl('/welcome');
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });
+        this.router.navigateByUrl('/welcome');
+    })
+    .catch(err => {
+      console.log('Something went wrong:', err.message);
+    });
+  }
+  loginWithFacebook() {
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider())
+      .then(value => {
+        this.router.navigateByUrl('/welcome');
+    })
+    .catch(err => {
+      console.log('Something went wrong:', err.message);
+    });
+  }
+  loginWithGitHub() {
+    return this.firebaseAuth.auth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider())
+      .then(value => {
+        this.router.navigateByUrl('/welcome');
+    })
+    .catch(err => {
+      console.log('Something went wrong:', err.message);
+    });
   }
 
   logout() {
