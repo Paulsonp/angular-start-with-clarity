@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       success => this.router.navigateByUrl('/welcome'),
       error => {
         if (error) {
-          this.errorMsg = 'The email address is already in use by another account.';
+          this.errorMsg = error.message;
         } else {
           console.log('Welcome');
         }
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       success => this.router.navigateByUrl('/welcome'),
       error => {
         if (error) {
-          this.errorMsg = 'Invalid user name or password ';
+          this.errorMsg = error.message;
         } else {
           console.log('Welcome');
         }

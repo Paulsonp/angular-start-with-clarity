@@ -16,11 +16,11 @@ export class ItemServices {
     }
     getItems(): Observable<ItemList[]> {
         return this.http.get(this.items_url)
-        .map((response: Response) => <ItemList[]>response.json())
-        // return this.http.get('../assets/data/potential.json')
-        // .map((res: Response) => res.json())
-        .do(data => console.log('server data:', data))  // debug
-        .catch(this.handleError);
+            .map((res: Response) => res.json())
+            // return this.http.get('../assets/data/potential.json')
+            // .map((res: Response) => res.json())
+            .do(data => console.log('server data:', data))  // debug
+            .catch(this.handleError);
     }
     private hadleError(error: Response) {
     console.error(error);
