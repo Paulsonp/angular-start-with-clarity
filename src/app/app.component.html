@@ -1,46 +1,40 @@
-<!--The whole content below can be removed with the new code.-->
 <div class="" fxLayout="column">
-    <header class="header header-4">
-        <div class="branding">
-            <a href="..." class="nav-link">
-                <clr-icon shape="helix" class="is-solid"></clr-icon>
-                <span class="title">Project Angular Clarity</span>
-            </a>
-        </div>
-        <div class="header-actions">
-            <clr-dropdown>
-                <button class="nav-text" clrDropdownTrigger>
-                    ps@neoito.com
-                    <clr-icon shape="caret down"></clr-icon>
-                </button>
-                <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-                    <a href="..." clrDropdownItem>Preferences</a>
-                    <a href="..." clrDropdownItem>Log out</a>
-                </clr-dropdown-menu>
-            </clr-dropdown>
-        </div>
-    </header>
-    <nav class="subnav">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" [routerLink]="['/welcome']">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" [routerLink]="['/items']">Item List</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Cloud</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Tenants</a>
-            </li>
-        </ul>
-    </nav>
-    <!-- <h1>Welcome to {{title}}!!</h1> -->
+  <header class="header header-4"  *ngIf="user | async">
+      <div class="branding">
+          <a href="..." class="nav-link">
+              <clr-icon shape="helix" class="is-solid"></clr-icon>
+              <span class="title">Project Angular Clarity</span>
+          </a>
+      </div>
+      <div class="header-actions">
+          <clr-dropdown>
+              <button class="nav-text" clrDropdownTrigger>
+                  {{ (authService.user | async)?.email }}
+                  <clr-icon shape="caret down"></clr-icon>
+              </button>
+              <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+                  <a (click)="logout()" clrDropdownItem>Log out</a>
+              </clr-dropdown-menu>
+          </clr-dropdown>
+      </div>
+  </header>
+  <nav class="subnav"  *ngIf="user | async">
+      <ul class="nav">
+          <li class="nav-item">
+              <a class="nav-link active" [routerLink]="['/welcome']">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link active" [routerLink]="['/items']">Item List</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Cloud</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Tenants</a>
+          </li>
+      </ul>
+  </nav>
   <div fxLayout="row" fxLayoutAlign="center center">
-        <!-- <pm-item-list  fxFlex="80"></pm-item-list> -->
-        <router-outlet></router-outlet  > 
-    <!-- <div fxFlex.gt-sm="33" fxFlex="67"> flex 67% on mobile, <br>and 33% on gt-sm devices.
-    </div> -->
+      <router-outlet></router-outlet  > 
   </div>
 </div>

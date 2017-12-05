@@ -1,0 +1,57 @@
+<div class="main__body">
+    <div class="container">
+  
+      <div class="login__page">
+        <div class="row">
+            <div class="">
+              <div class="login__card">
+                <div class="card-block">
+  
+                    <form >
+                      <h3 align="center">Login Form</h3>
+                      <h1 *ngIf="user | async">Welcome {{ (authService.user | async)?.email }}!</h1>
+                      
+                      <div *ngIf="!(authService.user | async)">
+                        <input type="text" [(ngModel)]="email" placeholder="email" [ngModelOptions]="{standalone: true}">
+                        <input type="password" [(ngModel)]="password" placeholder="password" [ngModelOptions]="{standalone: true}">
+                      
+                        <button (click)="signup()" [disabled]="!email || !password">
+                          Signup
+                        </button>
+                      
+                        <button (click)="login()" [disabled]="!email || !password">
+                          Login
+                        </button>
+                      </div>
+                      
+                      <button (click)="logout()" *ngIf="authService.user | async">
+                        Logout
+                      </button>
+  
+                      <div class="form-group">
+                          <button type="buton" class="btn btn-block" (click)="signInWithFacebook()">
+                            <i class="fa fa-facebook" aria-hidden="true"></i> 
+                            Login with Facebook
+                          </button>
+  
+                          <button type="button" class="btn btn-block" (click)="signInWithGitHub()">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                            Login with Github
+                          </button>
+  
+                          <button type="button" class="btn btn-block" (click)="signInWithGoogle()">
+                            <i class="fa fa-google" aria-hidden="true"></i>
+                            Login with Google
+                          </button>
+                      </div>                  
+                    </form>
+                    
+                </div>
+              </div>
+            </div>
+  
+        </div>
+      </div> <!-- end card -->
+  
+    </div>  <!-- end container -->
+  </div> 
